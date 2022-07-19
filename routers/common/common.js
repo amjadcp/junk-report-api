@@ -1,0 +1,1 @@
+module.exports.getAllWard = require('./getAllWard')
