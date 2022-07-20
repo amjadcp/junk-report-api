@@ -10,7 +10,10 @@ router.post('/create-ward', checkAuth, async(req, res)=>{
         return res.status(201).json({
             status: true,
             message: "ward created",
-            data: {wardId: newWard._id}
+            data: {
+                wardId: newWard._id,
+                wardNo: wardNo
+            }
         })
     }
     catch(err){

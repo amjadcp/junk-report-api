@@ -14,7 +14,8 @@ const AdminSchema = new mongoose.Schema({
 			message: "{VALUE} is not supported"
 		}
     },
-    wardId: mongoose.Schema.Types.ObjectId
+    wardId: mongoose.Schema.Types.ObjectId,
+    wardNo: String
 },{timestamps:true})
 
 module.exports = mongoose.model('AdminSchema', AdminSchema)

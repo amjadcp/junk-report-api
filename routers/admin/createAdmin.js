@@ -8,8 +8,8 @@ const {checkAuth} = require('../../middleware/checkAuth')
 router.post('/create-admin', checkAuth, async(req, res)=>{
     try{
         console.log(req.body);
-        const {name, phoneNumber, wardId} = req.body
-        let newAdmin = new AdminSchema({name: name, phoneNumber: phoneNumber, role: RoleEnum.WARD_ADMIN, wardId: mongoose.Types.ObjectId(wardId)})
+        const {name, phoneNumber, wardId, wardNo} = req.body
+        let newAdmin = new AdminSchema({name: name, phoneNumber: phoneNumber, role: RoleEnum.WARD_ADMIN, wardId: mongoose.Types.ObjectId(wardId), wardNo:wardNo})
         newAdmin = await newAdmin.save()
         let ward = await WardSchema.findOne({_id: mongoose.Types.ObjectId(wardId)})
         ward.wardAdmin = newAdmin._id

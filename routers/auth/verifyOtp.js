@@ -8,6 +8,7 @@ router.post('/verify-otp', async(req, res)=>{
         if (req.headers.authorization) {
             const token = req.headers.authorization.split(" ")[1]
             const {otp} = req.body
+            console.log(otp);
             const payload = jwt.verify(token, process.env.SECRET)
             console.log(payload);
             if(payload && payload.otp===otp){
