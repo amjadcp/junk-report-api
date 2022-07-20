@@ -4,9 +4,6 @@ require('dotenv').config(`${__dirname}/.env`)
 const db = require('./utils/dbconnect')
 db.connect()
 const cors = require('cors')
-const auth = require('./routers/auth/auth')
-const admin = require('./routers/admin/admin')
-const common = require('./routers/common/common')
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
@@ -32,6 +29,10 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+const auth = require('./routers/auth/auth')
+const admin = require('./routers/admin/admin')
+const common = require('./routers/common/common')
+const ticket = require('./routers/ticket/ticket')
 
 // auth
 app.use('/api/auth', [
@@ -49,6 +50,12 @@ app.use('/api/admin', [
 // common
 app.use('/api/common', [
     common.getAllWard
+])
+
+// ticket
+app.use('/api/ticket', [
+  ticket.raiseTicket,
+  ticket.ticketCount
 ])
 
 app.listen(process.env.PORT, ()=>console.log(`http://127.0.0.1:${process.env.PORT}`))
