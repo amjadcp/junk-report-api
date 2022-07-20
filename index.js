@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 // cors
-const whitelist = ["http://127.0.0.1:5500"];
+const whitelist = ["http://127.0.0.1:5500", "https://junk-report-admin.netlify.app"];
 
 app.set("trust proxy", 1);
 
