@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 // cors
-const whitelist = ["http://127.0.0.1:5500", "https://junk-report-admin.netlify.app"];
+const whitelist = ["http://127.0.0.1:5500", "http://127.0.0.1:5501", "https://junk-report-admin.netlify.app", "https://junkreport-public.netlify.app"];
 
 app.set("trust proxy", 1);
 
@@ -33,6 +33,7 @@ const auth = require('./routers/auth/auth')
 const admin = require('./routers/admin/admin')
 const common = require('./routers/common/common')
 const ticket = require('./routers/ticket/ticket')
+const wardAdmin = require('./routers/ward-admin/wardAdmin')
 
 // auth
 app.use('/api/auth', [
@@ -55,7 +56,9 @@ app.use('/api/common', [
 // ticket
 app.use('/api/ticket', [
   ticket.raiseTicket,
-  ticket.ticketCount
+  ticket.ticketCount,
+  wardAdmin.isCollect,
+  ticket.issue
 ])
 
 app.listen(process.env.PORT, ()=>console.log(`http://127.0.0.1:${process.env.PORT}`))

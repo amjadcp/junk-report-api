@@ -1,12 +1,13 @@
 const mongoose = require('mongoose')
-
 const TicketSchema = new mongoose.Schema({
-    wardId: mongoose.Schema.Types.ObjectId,
-    wardNo: String,
-    waste: String,
-    address: String,
     name: String,
     phoneNumber: String,
+    wardNo: String,
+    houseNo: String,
+    address: String,
+    pincode: String,
+    waste: String,
+    weight: Number,
     isCollect: {
         type: Boolean,
         default: false
