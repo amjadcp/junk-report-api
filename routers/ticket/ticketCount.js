@@ -9,7 +9,7 @@ router.get('/ticket-count', checkAuth, async(req, res)=>{
         return res.status(200).json({
             status: true,
             message: "ticket count",
-            data: { total:total, pending:pending }
+            data: { total:total, pending:pending, completed:total-pending }
         })
     }
     catch(err){
