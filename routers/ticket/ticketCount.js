@@ -4,8 +4,10 @@ const TicketSchema = require('../../models/ticketSchema')
 
 router.get('/ticket-count', checkAuth, async(req, res)=>{
     try{
-        const total = await TicketSchema.find({}).count()
-        const pending = await TicketSchema.find({isCollect:false}).count()
+        let filter = {isCollect:false}
+        if(req.user.role==="ward-admin") filter.wardNo=req.user.wardNo
+        const total = await TicketSchema.find(filter).count()
+        const pending = await TicketSchema.find(filter).count()
         return res.status(200).json({
             status: true,
             message: "ticket count",

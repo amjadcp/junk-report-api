@@ -20,7 +20,7 @@ router.post('/verify-otp', async(req, res)=>{
                             name: admin.name,
                             role: admin.role,
                             phoneNumber: admin.phoneNumber,
-                            ward: admin.ward
+                            wardNo: admin.wardNo
                         }, 
                         process.env.SECRET, { expiresIn: '30d' });
                     return res.status(200).json({
