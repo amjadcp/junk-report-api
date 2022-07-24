@@ -49,14 +49,14 @@ app.use('/api/admin', [
 ])
 
 // ward admin
-app.use('/api/ward-admin', [
-  wardAdmin.profile
-])
+// app.use('/api/ward-admin', [
+// ])
 
 // common
 app.use('/api/common', [
     common.getAllWard,
-    common.getIssuesByWard
+    common.getIssuesByWard,
+    common.profile
 ])
 
 // ticket
@@ -65,7 +65,7 @@ app.use('/api/ticket', [
   ticket.ticketCount,
   wardAdmin.isCollect,
   ticket.issue,
-  wardAdmin.getTicketByWard
+  common.getTicketByWard
 ])
 
 app.listen(process.env.PORT, ()=>console.log(`http://127.0.0.1:${process.env.PORT}`))

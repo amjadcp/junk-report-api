@@ -3,13 +3,17 @@ const { checkAuth } = require('../../middleware/checkAuth')
 const TicketSchema = require('../../models/ticketSchema')
 const IssueSchema = require('../../models/issueSchema')
 
-router.get('/ticket-count', checkAuth, async(req, res)=>{
+router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
     try{
+        let {wardNo} = req.params
         let filterTicket = {isCollect:false}
         let filterIssue = {}
         if(req.user.role==="ward-admin"){
             filterTicket.wardNo=req.user.wardNo
             filterIssue.wardNo=req.user.wardNo
+        }else{
+            filterTicket.wardNo=wardNo
+            filterIssue.wardNo=wardNo
         }
         const total = await TicketSchema.find(filterTicket).count()
         const pending = await TicketSchema.find(filterTicket).count()

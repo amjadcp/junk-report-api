@@ -6,7 +6,7 @@ const { RoleEnum } = require('../../utils/common')
 
 router.get('/get-all-admin', checkAuth, async(req, res)=>{
     try{
-        const admins = await AdminSchema.find({role: RoleEnum.WARD_ADMIN})
+        const admins = await AdminSchema.find({role: RoleEnum.WARD_ADMIN}).sort({wardNo: 1})
         return res.status(200).json({
             status: true,
             message: "list of admin",
