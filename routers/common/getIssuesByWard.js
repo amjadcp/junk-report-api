@@ -1,16 +1,28 @@
 const router = require('express').Router()
 const { checkAuth } = require('../../middleware/checkAuth')
 const IssueSchema = require('../../models/issueSchema')
+const TicketSchema = require('../../models/ticketSchema')
 // const { RoleEnum } = require('../../utils/common')
 
 router.get('/get-issues', checkAuth, async(req, res)=>{
     try{
         const issues = await IssueSchema.find({wardNo: req.user.wardNo})
-        return res.status(200).json({
-            status: true,
-            message: "list of ward",
-            data: issues
-        })
+        let ids  = []
+        if(issues.length !==0){
+            issues.forEach(issue=> ids.push(issue.ticketId))
+            const tickets = await TicketSchema.find({_id: {$in: ids}})
+            return res.status(200).json({
+                status: true,
+                message: "list of tickets",
+                data: tickets
+            })
+        }else{
+            return res.status(404).json({
+                status: true,
+                message: "issues not found",
+                data: null
+            })
+        }
     }
     catch(err){
         console.log(err);
