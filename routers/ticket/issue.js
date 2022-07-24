@@ -7,7 +7,7 @@ router.post('/report', async(req, res)=>{
         let { ticketId, phoneNumber } = req.body
         let ticket = await TicketSchema.findOne({_id: ticketId, phoneNumber: phoneNumber})
         if(ticket && ticket!==null){
-            newIssue = new IssueSchema({ticketId, phoneNumber})
+            newIssue = new IssueSchema({ticketId, wardNo: ticket.wardNo, phoneNumber})
             await newIssue.save()
             sendSms(phoneNumber, 
             `

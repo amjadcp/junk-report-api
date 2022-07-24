@@ -48,9 +48,15 @@ app.use('/api/admin', [
     admin.getAllAdmin,
 ])
 
+// ward admin
+app.use('/api/ward-admin', [
+  wardAdmin.profile
+])
+
 // common
 app.use('/api/common', [
-    common.getAllWard
+    common.getAllWard,
+    common.getIssuesByWard
 ])
 
 // ticket
