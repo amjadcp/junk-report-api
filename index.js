@@ -46,6 +46,7 @@ app.use('/api/admin', [
     admin.createAdmin,
     admin.createWard,
     admin.getAllAdmin,
+    admin.editProfile
 ])
 
 // ward admin

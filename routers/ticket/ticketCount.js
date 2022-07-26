@@ -11,7 +11,7 @@ router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
         if(req.user.role==="ward-admin"){
             filterTicket.wardNo=req.user.wardNo
             filterIssue.wardNo=req.user.wardNo
-        }else{
+        }else if(wardNo!=='null'){
             filterTicket.wardNo=wardNo
             filterIssue.wardNo=wardNo
         }
