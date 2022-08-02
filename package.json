@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/amjadcp/junk-report-api#readme",
   "dependencies": {
+    "@nestjs/swagger": "^6.0.4",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
@@ -27,8 +28,10 @@
     "fast-two-sms": "^3.0.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.4.5",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.19",
     "otp-generator": "^4.0.0",
+    "swagger-ui-express": "^4.5.0",
     "twilio": "^3.79.0"
   }
 }

@@ -6,7 +6,7 @@ const IssueSchema = require('../../models/issueSchema')
 router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
     try{
         let {wardNo} = req.params
-        let filterTicket = {isCollect:false}
+        let filterTicket = {}
         let filterIssue = {}
         if(req.user.role==="ward-admin"){
             filterTicket.wardNo=req.user.wardNo
@@ -16,6 +16,7 @@ router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
             filterIssue.wardNo=wardNo
         }
         const total = await TicketSchema.find(filterTicket).count()
+        filterTicket.isCollect=false
         const pending = await TicketSchema.find(filterTicket).count()
         const issues = await IssueSchema.find(filterIssue).count()
         return res.status(200).json({

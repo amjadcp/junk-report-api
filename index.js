@@ -1,5 +1,10 @@
 const express = require('express')
 const app = express()
+// const low = require("lowdb");
+// const FileSync = require("lowdb/adapters/FileSync");
+// const {join} = require('path');
+const morgan = require("morgan");
+
 require('dotenv').config(`${__dirname}/.env`)
 const db = require('./utils/dbconnect')
 db.connect()
@@ -7,6 +12,10 @@ const cors = require('cors')
 const bodyParser = require("body-parser");
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
+const swaggerUI = require("swagger-ui-express");
+const docs = require('./docs');
+
+
 // cors
 const whitelist = ["http://127.0.0.1:5500", "http://127.0.0.1:5501", "https://junk-report-admin.netlify.app", "https://junkreport-public.netlify.app"];
 
@@ -28,12 +37,15 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+// app.use(morgan("dev"));
 
 const auth = require('./routers/auth/auth')
 const admin = require('./routers/admin/admin')
 const common = require('./routers/common/common')
 const ticket = require('./routers/ticket/ticket')
 const wardAdmin = require('./routers/ward-admin/wardAdmin')
+
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
 
 // auth
 app.use('/api/auth', [

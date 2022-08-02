@@ -8,6 +8,7 @@ router.get('/get-ticket/:wardNo', checkAuth, async(req, res)=>{
         let {wardNo} = req.params
         if(isNaN(wardNo)) wardNo = req.user.wardNo
         let tickets = await TicketSchema.find({wardNo:wardNo, isCollect: false})
+        console.log(tickets);
         if(tickets.length!==0){
             return res.status(200).json({
                 status: false,
