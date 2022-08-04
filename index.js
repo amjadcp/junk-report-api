@@ -14,7 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 const swaggerUI = require("swagger-ui-express");
 const docs = require('./docs');
-
+const {document} = require('./doc')
 
 // cors
 const whitelist = ["http://127.0.0.1:5500", "http://127.0.0.1:5501", "https://junk-report-admin.netlify.app", "https://junkreport-public.netlify.app"];
@@ -45,7 +45,7 @@ const common = require('./routers/common/common')
 const ticket = require('./routers/ticket/ticket')
 const wardAdmin = require('./routers/ward-admin/wardAdmin')
 
-app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(docs));
+app.use('/api-docs',swaggerUI.serve,swaggerUI.setup(document));
 
 // auth
 app.use('/api/auth', [

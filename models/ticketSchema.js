@@ -6,7 +6,7 @@ const TicketSchema = new mongoose.Schema({
     houseNo: String,
     address: String,
     pincode: String,
-    waste: String,
+    waste: [String],
     weight: Number,
     isCollect: {
         type: Boolean,

@@ -7,6 +7,19 @@ router.post('/report', async(req, res)=>{
         let { ticketId, phoneNumber } = req.body
         let ticket = await TicketSchema.findOne({_id: ticketId, phoneNumber: phoneNumber})
         if(ticket && ticket!==null){
+            const ticketMonth = ticket.createdAt.getMonth() + 1
+            const ticketDate = ticket.createdAt.getDate()
+            const nowMonth = new Date().getMonth() + 1
+            const nowDate = new Date().getDate()
+
+            if(nowMonth===ticketMonth && nowDate-ticketDate<7){
+                return res.status(400).json({
+                    status: false,
+                    message: "Have to complete 7 days after ticket raise",
+                    data: null
+                })
+            }
+
             newIssue = new IssueSchema({ticketId, wardNo: ticket.wardNo, phoneNumber})
             await newIssue.save()
             sendSms(phoneNumber, 
@@ -16,6 +29,16 @@ router.post('/report', async(req, res)=>{
             This message from JUNK REPORT
             `
             )
+
+            sendSms('9746825733', 
+            `
+            There is an issue reported.
+            Your issue ID : ${newIssue._id}
+            Ward No       : ${ticket.wardNo}
+            This message from JUNK REPORT
+            `
+            )
+
             return res.status(201).json({
                 status: true,
                 message: "issue created",

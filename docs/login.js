@@ -49,18 +49,6 @@ module.exports = {
                     required: true
                 }
             ],
-            requestBody:{
-                content: {
-                    "application/json":{
-                        schema: {
-                            type: "object",
-                            properies: {
-                                schema
-                            }
-                        }
-                    }
-                }
-            },
             responses: {
                 200: {
                     description: "OK",
@@ -71,7 +59,9 @@ module.exports = {
                                 example: {
                                     status: true,
                                     message: "login successfully",
-                                    data: schema
+                                    data: {
+                                        name: "String"
+                                    }
                                 }
                             }
                         }
