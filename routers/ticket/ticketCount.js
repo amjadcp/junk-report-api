@@ -7,7 +7,7 @@ router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
     try{
         let {wardNo} = req.params
         let filterTicket = {}
-        let filterIssue = {}
+        let filterIssue = {solved: false}
         if(req.user.role==="ward-admin"){
             filterTicket.wardNo=req.user.wardNo
             filterIssue.wardNo=req.user.wardNo
@@ -19,6 +19,7 @@ router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
         filterTicket.isCollect=false
         const pending = await TicketSchema.find(filterTicket).count()
         const issues = await IssueSchema.find(filterIssue).count()
+        console.log(issues);
         return res.status(200).json({
             status: true,
             message: "ticket count",
