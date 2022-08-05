@@ -5,9 +5,21 @@ const IssueSchema = require('../../models/issueSchema')
 
 router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
     try{
+        
         let {wardNo} = req.params
         let filterTicket = {}
         let filterIssue = {solved: false}
+        console.log(req.query.date);
+        if(req.query.date!=='null'){
+            filterTicket.createdAt = {
+                "$gte": new Date(new Date(req.query.date).setHours(00, 00, 00)),
+                "$lt": new Date(new Date(req.query.date).setHours(23, 59, 59))
+            }
+            filterIssue.createdAt = {
+                "$gte": new Date(new Date(req.query.date).setHours(00, 00, 00)),
+                "$lt": new Date(new Date(req.query.date).setHours(23, 59, 59))
+            }
+        }
         if(req.user.role==="ward-admin"){
             filterTicket.wardNo=req.user.wardNo
             filterIssue.wardNo=req.user.wardNo
@@ -19,7 +31,6 @@ router.get('/ticket-count/:wardNo', checkAuth, async(req, res)=>{
         filterTicket.isCollect=false
         const pending = await TicketSchema.find(filterTicket).count()
         const issues = await IssueSchema.find(filterIssue).count()
-        console.log(issues);
         return res.status(200).json({
             status: true,
             message: "ticket count",
