@@ -4,11 +4,11 @@ const IssueSchema = require('../../models/issueSchema')
 const TicketSchema = require('../../models/ticketSchema')
 // const { RoleEnum } = require('../../utils/common')
 
-router.get('/get-issues/:wardNo', checkAuth, async(req, res)=>{
+router.get('/get-completed-issues/:wardNo', checkAuth, async(req, res)=>{
     try{
         let {wardNo} = req.params
         if(isNaN(wardNo)) wardNo = req.user.wardNo
-        const issues = await IssueSchema.find({wardNo: wardNo, solved: false})
+        const issues = await IssueSchema.find({wardNo: wardNo, solved: true})
         let ids  = []
         if(issues.length !==0){
             issues.forEach(issue=> ids.push(issue.ticketId))

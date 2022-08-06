@@ -69,6 +69,7 @@ app.use('/api/admin', [
 app.use('/api/common', [
     common.getAllWard,
     common.getIssuesByWard,
+    common.getCompletedIssueByWard,
     common.profile
 ])
 
@@ -78,7 +79,8 @@ app.use('/api/ticket', [
   ticket.ticketCount,
   wardAdmin.isCollect,
   ticket.issue,
-  common.getTicketByWard
+  common.getTicketByWard,
+  common.getCompletedTicketByWard
 ])
 
 app.listen(process.env.PORT, ()=>console.log(`http://127.0.0.1:${process.env.PORT}`))

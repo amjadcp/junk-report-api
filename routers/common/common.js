@@ -1,4 +1,6 @@
 module.exports.getAllWard = require('./getAllWard')
 module.exports.getIssuesByWard = require('./getIssuesByWard')
+module.exports.getCompletedIssueByWard = require('./getCompletedIssueByWard')
 module.exports.getTicketByWard=require('./getTicketByWard')
+module.exports.getCompletedTicketByWard=require('./getCompletedTicketByWard')
 module.exports.profile=require('./profile')
